@@ -1,0 +1,15 @@
+name: CI/CD for GitHub Actions Tests
+
+on:
+  - pull_request
+  - push
+
+jobs:
+  pre-commit:
+    name: Run pre-commit steps
+    runs-on: ubuntu-latest
+    steps:
+      - uses: docker://flaudisio/pre-commit:latest
+      - run: |
+          pre-commit --version
+          pre-commit run --all-files --verbose --color always
