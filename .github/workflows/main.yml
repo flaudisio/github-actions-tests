@@ -19,4 +19,4 @@ jobs:
           pre-commit --version
       - name: Run pre-commit
         run: |
-          pre-commit run --all-files --verbose
+          pre-commit run --all-files --verbose --color always
