@@ -1,0 +1,8 @@
+---
+site_name: GitHub Actions Tests
+site_description: Repository for testing GitHub Actions features.
+
+repo_name: tolentinof/github-actions-tests
+repo_url: https://github.com/tolentinof/github-actions-tests
+
+copyright: MIT License - Copyright &copy; 2019 Flaudísio Tolentino.
