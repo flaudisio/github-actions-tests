@@ -1,4 +1,4 @@
-name: CI/CD for GitHub Actions Tests
+name: Main pipeline
 
 on:
   - pull_request
