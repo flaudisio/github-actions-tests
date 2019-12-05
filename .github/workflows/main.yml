@@ -19,20 +19,14 @@ jobs:
   build-site:
     name: Build site
     runs-on: ubuntu-latest
+    container:
+      image: flaudisio/mkdocs:1
     needs: pre-commit
-    env:
-      MKDOCS_VERSION: 1.*
     steps:
       - uses: actions/checkout@v1
-      - uses: actions/setup-python@v1
-        with:
-          python-version: 3.7
-      - name: Install MkDocs
-        run: |
-          pip install "mkdocs==${MKDOCS_VERSION}"
-          mkdocs --version
       - name: Build site
         run: |
+          mkdocs --version
           mkdocs build --clean --strict
       - name: Upload site artifacts
         uses: actions/upload-artifact@v1
