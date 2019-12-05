@@ -22,6 +22,7 @@ jobs:
 
   build-site:
     name: Build and test site
+    runs-on: ubuntu-latest
     env:
       MKDOCS_VERSION: 1.*
     steps:
