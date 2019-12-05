@@ -69,4 +69,5 @@ jobs:
           name: site
       - name: Run S3 sync
         run: |
+          aws --version
           aws s3 sync --delete ./site s3://$BUCKET_NAME
