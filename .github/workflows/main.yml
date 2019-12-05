@@ -11,7 +11,8 @@ jobs:
       image: flaudisio/pre-commit:latest
     steps:
       - uses: actions/checkout@v1
-      - run: |
+      - name: Run pre-commit
+        run: |
           pre-commit --version
           pre-commit run --all-files --verbose --color always
 
