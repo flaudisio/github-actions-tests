@@ -57,6 +57,7 @@ jobs:
     container:
       image: flaudisio/awscli:1
     needs: test-site
+    if: github.ref == "master"
     env:
       BUCKET_NAME: tolentinof-github-actions-tests
       AWS_REGION: us-east-1
