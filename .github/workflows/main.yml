@@ -1,7 +1,11 @@
 name: CI/CD
 
 on:
-  - push
+  push:
+    branches:
+      - "**"
+  schedule:
+    - cron: "0 0 */2 * *"
 
 jobs:
   pre-commit:
