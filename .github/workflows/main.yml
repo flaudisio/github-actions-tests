@@ -1,4 +1,4 @@
-name: CI/CD
+name: Main
 
 on:
   push:
@@ -39,13 +39,19 @@ jobs:
   pre-commit:
     name: Run pre-commit
     runs-on: ubuntu-latest
-    container:
-      image: flaudisio/pre-commit:latest
     steps:
       - uses: actions/checkout@v1
+      - uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: Install pre-commit
+        run: |
+          python --version
+          pip --version
+          pip install pre-commit
+          pre-commit --version
       - name: Run pre-commit
         run: |
-          pre-commit --version
           pre-commit run --all-files --verbose --color always
 
   build-site:
@@ -89,18 +95,18 @@ jobs:
     container:
       image: flaudisio/awscli:1
     needs: test-site
-    if: github.ref == 'master'
-    env:
-      BUCKET_NAME: tolentinof-github-actions-tests
-      AWS_REGION: us-east-1
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    if: github.ref == 'refs/heads/master'
     steps:
       - name: Download site artifacts
         uses: actions/download-artifact@v1
         with:
           name: site
       - name: Run S3 sync
+        env:
+          BUCKET_NAME: tolentinof-github-actions-tests
+          AWS_REGION: us-east-1
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
           aws --version
           aws s3 sync --delete ./site s3://$BUCKET_NAME
