@@ -39,13 +39,20 @@ jobs:
   pre-commit:
     name: Run pre-commit
     runs-on: ubuntu-latest
-    container:
-      image: flaudisio/pre-commit:latest
     steps:
       - uses: actions/checkout@v1
+      - uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: Install pre-commit
+        run: |
+          echo "PATH = $PATH"
+          python --version
+          pip --version
+          pip install pre-commit
+          pre-commit --version
       - name: Run pre-commit
         run: |
-          pre-commit --version
           pre-commit run --all-files --verbose --color always
 
   build-site:
