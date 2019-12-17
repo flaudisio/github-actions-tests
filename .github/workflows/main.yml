@@ -46,7 +46,6 @@ jobs:
           python-version: 3.7
       - name: Install pre-commit
         run: |
-          echo "PATH = $PATH"
           python --version
           pip --version
           pip install pre-commit
