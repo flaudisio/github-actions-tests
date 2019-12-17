@@ -96,17 +96,17 @@ jobs:
       image: flaudisio/awscli:1
     needs: test-site
     if: github.ref == 'refs/heads/master'
-    env:
-      BUCKET_NAME: tolentinof-github-actions-tests
-      AWS_REGION: us-east-1
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     steps:
       - name: Download site artifacts
         uses: actions/download-artifact@v1
         with:
           name: site
       - name: Run S3 sync
+        env:
+          BUCKET_NAME: tolentinof-github-actions-tests
+          AWS_REGION: us-east-1
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
           aws --version
           aws s3 sync --delete ./site s3://$BUCKET_NAME
